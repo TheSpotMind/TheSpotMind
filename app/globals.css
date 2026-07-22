@@ -8,6 +8,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  /* Brand accent, kept identical to the dashboard's --pink so the site and the
+     app read as one product. */
+  --color-accent: #f472b6;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }

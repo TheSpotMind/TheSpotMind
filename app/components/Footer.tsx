@@ -5,7 +5,7 @@ export default function Footer() {
         <div className="flex flex-col gap-10 md:flex-row md:justify-between">
           <div>
             <h3 className="text-lg font-semibold">
-              TheSpot<span className="text-blue-400">Mind</span>
+              TheSpot<span className="text-accent">Mind</span>
             </h3>
             <p className="mt-3 max-w-sm text-sm text-zinc-400">
               We help creators turn their audience into scalable, monetizable
