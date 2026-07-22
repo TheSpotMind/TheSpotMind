@@ -2,8 +2,8 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-black text-white">
       <section className="relative overflow-hidden">
-        <div className="absolute left-[-120px] top-24 h-72 w-72 rounded-full bg-blue-500/10 blur-3xl" />
-        <div className="absolute right-[-80px] top-32 h-80 w-80 rounded-full bg-cyan-400/10 blur-3xl" />
+        <div className="absolute left-[-120px] top-24 h-72 w-72 rounded-full bg-pink-500/10 blur-3xl" />
+        <div className="absolute right-[-80px] top-32 h-80 w-80 rounded-full bg-accent/10 blur-3xl" />
 
         <div className="relative mx-auto flex max-w-5xl flex-col px-6 py-28 md:py-36">
           <div className="mb-6 inline-flex w-fit rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.2em] text-zinc-300">
@@ -12,7 +12,7 @@ export default function Home() {
 
           <h1 className="max-w-4xl text-5xl font-semibold leading-[0.92] md:text-7xl">
             Turn your audience into a{" "}
-            <span className="bg-gradient-to-r from-white to-blue-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-white to-accent bg-clip-text text-transparent">
               scalable revenue
             </span>{" "}
             community.
