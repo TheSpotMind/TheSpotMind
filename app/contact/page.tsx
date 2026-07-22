@@ -12,18 +12,26 @@ export default function ContactPage() {
     const form = e.currentTarget;
     const data = new FormData(form);
 
-    const res = await fetch("https://formspree.io/f/xgopwgan", {
-      method: "POST",
-      body: data,
-      headers: {
-        Accept: "application/json",
-      },
-    });
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: data.get("name"),
+          email: data.get("email"),
+          message: data.get("message"),
+        }),
+      });
 
-    if (res.ok) {
-      setStatus("SUCCESS");
-      form.reset();
-    } else {
+      if (res.ok) {
+        setStatus("SUCCESS");
+        form.reset();
+      } else {
+        setStatus("ERROR");
+      }
+    } catch {
+      // A dropped connection should read the same as a rejected send, not hang
+      // on "Sending..." forever.
       setStatus("ERROR");
     }
   };
