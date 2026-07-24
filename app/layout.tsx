@@ -40,6 +40,9 @@ export default function RootLayout({
               <Link href="/about" className="transition hover:text-white">
                 About
               </Link>
+              <Link href="/blog" className="transition hover:text-white">
+                Blog
+              </Link>
               <Link href="/contact" className="transition hover:text-white">
                 Contact
               </Link>

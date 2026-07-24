@@ -1,0 +1,155 @@
+// Blog posts live as markdown files in content/blog. This module is the single
+// place that reads and parses them, so pages never touch the filesystem or the
+// markdown parser directly. It runs only on the server (build time / RSC).
+import fs from "node:fs";
+import path from "node:path";
+import matter from "gray-matter";
+import { marked } from "marked";
+
+const POSTS_DIR = path.join(process.cwd(), "content", "blog");
+
+// Configure the shared marked instance once, at module load. Images get native
+// lazy-loading, and an image given a markdown title — ![alt](src "caption") —
+// renders as a <figure> with a <figcaption>.
+marked.use({
+  renderer: {
+    image({ href, title, text }) {
+      const img = `<img src="${escapeAttr(href ?? "")}" alt="${escapeAttr(
+        text ?? "",
+      )}" loading="lazy" decoding="async">`;
+      return title
+        ? `<figure>${img}<figcaption>${escapeHtml(title)}</figcaption></figure>`
+        : img;
+    },
+  },
+});
+
+export type PostMeta = {
+  slug: string;
+  title: string;
+  date: string; // ISO yyyy-mm-dd
+  excerpt: string;
+  author: string;
+  cover?: string; // optional hero/thumbnail image path
+};
+
+export type Post = PostMeta & {
+  contentHtml: string;
+};
+
+// A file named my-post.md is served at /blog/my-post.
+function slugFromFile(filename: string): string {
+  return filename.replace(/\.md$/, "");
+}
+
+// Which files in content/blog are actual posts. README.md (the authoring guide)
+// and dotfiles/underscore-prefixed drafts are not.
+function isPostFile(filename: string): boolean {
+  return (
+    filename.endsWith(".md") &&
+    filename.toLowerCase() !== "readme.md" &&
+    !filename.startsWith("_") &&
+    !filename.startsWith(".")
+  );
+}
+
+function readRaw(slug: string): matter.GrayMatterFile<string> | null {
+  const full = path.join(POSTS_DIR, `${slug}.md`);
+  if (!fs.existsSync(full)) return null;
+  return matter(fs.readFileSync(full, "utf8"));
+}
+
+function toMeta(slug: string, data: Record<string, unknown>): PostMeta {
+  return {
+    slug,
+    title: String(data.title ?? slug),
+    // gray-matter parses unquoted YAML dates into Date objects; normalize to a
+    // plain yyyy-mm-dd string so nothing downstream depends on the timezone.
+    date: toISODate(data.date),
+    excerpt: String(data.excerpt ?? ""),
+    author: String(data.author ?? "TheSpotMind"),
+    ...(data.cover ? { cover: String(data.cover) } : {}),
+  };
+}
+
+function toISODate(value: unknown): string {
+  if (value instanceof Date) return value.toISOString().slice(0, 10);
+  return String(value ?? "");
+}
+
+/** All posts, newest first. Metadata only — no rendered body. */
+export function getSortedPosts(): PostMeta[] {
+  if (!fs.existsSync(POSTS_DIR)) return [];
+  return fs
+    .readdirSync(POSTS_DIR)
+    .filter(isPostFile)
+    .map((f) => {
+      const slug = slugFromFile(f);
+      return toMeta(slug, matter.read(path.join(POSTS_DIR, f)).data);
+    })
+    .sort((a, b) => (a.date < b.date ? 1 : -1));
+}
+
+/** Slugs for generateStaticParams. */
+export function getAllSlugs(): string[] {
+  if (!fs.existsSync(POSTS_DIR)) return [];
+  return fs
+    .readdirSync(POSTS_DIR)
+    .filter(isPostFile)
+    .map(slugFromFile);
+}
+
+/** A single post with its markdown rendered to HTML, or null if missing. */
+export async function getPost(slug: string): Promise<Post | null> {
+  const raw = readRaw(slug);
+  if (!raw) return null;
+  const rendered = await marked.parse(embedYouTube(raw.content));
+  const contentHtml = unwrapBlockMedia(rendered);
+  return { ...toMeta(slug, raw.data), contentHtml };
+}
+
+// A line that is *only* a YouTube URL becomes a responsive, privacy-friendly
+// embed. We capture just the 11-char video id and rebuild a known-good
+// youtube-nocookie URL, so author text never reaches the iframe verbatim —
+// this can't be used to inject an arbitrary embed. Inline links (mid-sentence)
+// don't match the anchored pattern and stay as ordinary links.
+const YOUTUBE_LINE =
+  /^[ \t]*(?:https?:\/\/)?(?:www\.|m\.)?(?:youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})(?:[^\s]*)?[ \t]*$/gim;
+
+function embedYouTube(md: string): string {
+  return md.replace(
+    YOUTUBE_LINE,
+    (_m, id) =>
+      `\n<div class="blog-video"><iframe src="https://www.youtube-nocookie.com/embed/${id}" title="YouTube video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>\n`,
+  );
+}
+
+// marked wraps a standalone image/figure in a <p>, which is invalid around a
+// block <figure>. Unwrap those so the media sits at block level.
+function unwrapBlockMedia(html: string): string {
+  return html
+    .replace(/<p>(\s*<figure>[\s\S]*?<\/figure>\s*)<\/p>/g, "$1")
+    .replace(/<p>(\s*<img[^>]*>\s*)<\/p>/g, "$1");
+}
+
+function escapeHtml(s: string): string {
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function escapeAttr(s: string): string {
+  return escapeHtml(s).replace(/"/g, "&quot;");
+}
+
+/** e.g. "2026-07-10" -> "July 10, 2026". Falls back to the raw string. */
+export function formatDate(iso: string): string {
+  const d = new Date(`${iso}T00:00:00`);
+  if (Number.isNaN(d.getTime())) return iso;
+  return d.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
