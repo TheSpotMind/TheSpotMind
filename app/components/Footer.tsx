@@ -39,6 +39,14 @@ export default function Footer() {
 
           <div className="flex gap-4">
             <a
+              href="https://x.com/thespotmind"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white"
+            >
+              X
+            </a>
+            <a
               href="https://www.instagram.com/thespotmind/"
               target="_blank"
               rel="noopener noreferrer"
