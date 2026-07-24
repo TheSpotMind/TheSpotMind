@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <footer className="mt-20 border-t border-white/10">
@@ -17,16 +19,17 @@ export default function Footer() {
             <div>
               <p className="mb-3 text-white">Navigation</p>
               <div className="flex flex-col gap-2 text-zinc-400">
-                <a href="/" className="hover:text-white">Home</a>
-                <a href="/solutions" className="hover:text-white">Solutions</a>
-                <a href="/contact" className="hover:text-white">Contact</a>
+                <Link href="/" className="hover:text-white">Home</Link>
+                <Link href="/solutions" className="hover:text-white">Solutions</Link>
+                <Link href="/blog" className="hover:text-white">Blog</Link>
+                <Link href="/contact" className="hover:text-white">Contact</Link>
               </div>
             </div>
 
             <div>
               <p className="mb-3 text-white">Company</p>
               <div className="flex flex-col gap-2 text-zinc-400">
-                <a href="/about" className="hover:text-white">About</a>
+                <Link href="/about" className="hover:text-white">About</Link>
                 <a href="#" className="hover:text-white">Privacy</a>
                 <a href="#" className="hover:text-white">Terms</a>
               </div>
