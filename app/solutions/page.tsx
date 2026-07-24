@@ -1,3 +1,9 @@
+export const metadata = {
+  title: "Creator Community Growth, Monetization & AI Automation Services",
+  description:
+    "Community growth loops, monetization funnels, and AI automation for creators, coaches, and digital brands. See how TheSpotMind turns audiences into revenue.",
+};
+
 export default function Solutions() {
   return (
     <main className="min-h-screen bg-black text-white px-6 py-24">
