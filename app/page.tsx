@@ -1,3 +1,9 @@
+export const metadata = {
+  title: "Community Growth & Monetization Systems for Creators | TheSpotMind",
+  description:
+    "TheSpotMind builds community growth, retention, and monetization systems for creators — powered by AI automation. Turn your audience into recurring revenue.",
+};
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-black text-white">
