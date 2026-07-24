@@ -3,11 +3,18 @@ title: Automation that still feels personal
 date: 2026-07-23
 excerpt: The fear is that automating your community makes it cold. Done right, it does the opposite — it gives you back the time to be present where it matters.
 author: TheSpotMind
+cover: /logo.png
 ---
 
 There's a reasonable fear behind every conversation about automating a creator business: that the moment you automate, it stops feeling human. Nobody follows a creator to talk to a script.
 
 But the choice isn't between "personal" and "automated." It's between spending your limited attention on the moments that need you, or draining it on the ones that don't.
+
+![The two halves of a creator business — the human relationship and the system underneath it.](/logo-wordmark.png "Presence and systems, working together.")
+
+We walk through the whole idea in this short video:
+
+https://www.youtube.com/watch?v=dQw4w9WgXcQ
 
 ## Automate the plumbing, not the relationship
 

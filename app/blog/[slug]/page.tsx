@@ -44,6 +44,19 @@ export default async function BlogPost({
           ← Back to blog
         </Link>
 
+        {post.cover && (
+          // Likely the LCP element — load it eagerly. Plain <img> (not
+          // next/image) keeps remote/covers config-free and matches the body.
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={post.cover}
+            alt=""
+            loading="eager"
+            fetchPriority="high"
+            className="mt-8 w-full rounded-3xl border border-white/10"
+          />
+        )}
+
         <p className="mt-10 text-sm text-zinc-500">
           {formatDate(post.date)} · {post.author}
         </p>

@@ -36,16 +36,29 @@ export default function Blog() {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="group flex flex-col rounded-3xl border border-white/10 bg-white/[0.03] p-8 transition hover:border-white/20 hover:bg-white/[0.05]"
+                className="group flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] transition hover:border-white/20 hover:bg-white/[0.05]"
               >
-                <p className="text-sm text-zinc-500">{formatDate(post.date)}</p>
-                <h2 className="mt-3 text-2xl font-semibold transition group-hover:text-white">
-                  {post.title}
-                </h2>
-                <p className="mt-4 leading-7 text-zinc-400">{post.excerpt}</p>
-                <span className="mt-6 text-sm font-medium text-accent">
-                  Read more →
-                </span>
+                {post.cover && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={post.cover}
+                    alt=""
+                    loading="lazy"
+                    className="aspect-[16/9] w-full object-cover"
+                  />
+                )}
+                <div className="flex flex-1 flex-col p-8">
+                  <p className="text-sm text-zinc-500">
+                    {formatDate(post.date)}
+                  </p>
+                  <h2 className="mt-3 text-2xl font-semibold transition group-hover:text-white">
+                    {post.title}
+                  </h2>
+                  <p className="mt-4 leading-7 text-zinc-400">{post.excerpt}</p>
+                  <span className="mt-6 text-sm font-medium text-accent">
+                    Read more →
+                  </span>
+                </div>
               </Link>
             ))}
           </div>
