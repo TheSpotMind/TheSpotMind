@@ -47,7 +47,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="hover:text-white"
             >
-              X
+              Twitter
             </a>
             <a
               href="https://www.instagram.com/thespotmind/"
