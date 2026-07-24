@@ -38,9 +38,22 @@ export default function Footer() {
           <p>© {new Date().getFullYear()} TheSpotMind. All rights reserved.</p>
 
           <div className="flex gap-4">
-            <a href="#" className="hover:text-white">Twitter</a>
-            <a href="#" className="hover:text-white">Instagram</a>
-            <a href="#" className="hover:text-white">LinkedIn</a>
+            <a
+              href="https://www.instagram.com/thespotmind/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white"
+            >
+              Instagram
+            </a>
+            <a
+              href="https://www.linkedin.com/company/thespotmind/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white"
+            >
+              LinkedIn
+            </a>
           </div>
         </div>
       </div>
