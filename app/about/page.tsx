@@ -1,3 +1,5 @@
+import Faq from "../components/Faq";
+
 export const metadata = {
   title: "About — TheSpotMind",
   description:
@@ -115,6 +117,52 @@ export default function About() {
             </p>
           </div>
         </section>
+
+        {/* WHERE WE WORK */}
+        <section className="mt-24 grid gap-12 md:grid-cols-2">
+          <div>
+            <p className="text-sm uppercase tracking-[0.2em] text-zinc-400">
+              Where we work
+            </p>
+            <h2 className="mt-4 text-3xl font-semibold md:text-4xl">
+              Miami and New York, working across the Americas.
+            </h2>
+          </div>
+          <div className="text-lg leading-8 text-zinc-400">
+            <p>
+              TheSpotMind operates from Miami, Florida, with presence in the New
+              York metropolitan area. We work with creators and community
+              operators across the United States and throughout Latin America,
+              in English and Spanish.
+            </p>
+            <p className="mt-6">
+              Engagements run remotely, so location is not a constraint on who
+              we can work with. For clients in the Miami and New York areas,
+              in-person working sessions are available.
+            </p>
+          </div>
+        </section>
+
+        {/* LOCATION FAQ — visible Q&A + FAQPage structured data */}
+        <Faq
+          items={[
+            {
+              question: "Where is TheSpotMind based?",
+              answer:
+                "TheSpotMind operates from Miami, Florida, with presence in the New York metropolitan area. We work with clients across the United States and Latin America. Engagements run remotely, so location is not a constraint on who we can work with.",
+            },
+            {
+              question: "Do you work with clients outside the United States?",
+              answer:
+                "Yes. We work throughout Latin America as well as the US. Work is delivered remotely, and we operate in English and Spanish. Invoicing is in US dollars.",
+            },
+            {
+              question: "Do you work in Spanish?",
+              answer:
+                "Yes. Engagements can run entirely in Spanish or English, including documentation and deliverables.",
+            },
+          ]}
+        />
 
         {/* CTA */}
         <div className="mt-24 rounded-3xl border border-white/10 p-12 text-center">

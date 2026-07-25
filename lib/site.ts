@@ -32,5 +32,21 @@ export function organizationSchema() {
     description:
       "We help creators grow, engage, and monetize their communities with systems and AI automation.",
     sameAs: SOCIAL_PROFILES,
+    // City-level address only. We deliberately omit streetAddress/telephone
+    // until they're real and publishable — partial address data fails
+    // verification and weakens the entity signal rather than strengthening it.
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Miami",
+      addressRegion: "FL",
+      addressCountry: "US",
+    },
+    areaServed: [
+      { "@type": "Country", name: "United States" },
+      { "@type": "Place", name: "Latin America" },
+      { "@type": "City", name: "Miami" },
+      { "@type": "City", name: "New York" },
+    ],
+    knowsLanguage: ["en", "es"],
   };
 }

@@ -51,6 +51,11 @@ export default function ContactPage() {
           Tell us about your audience, community, and goals. We’ll help you map the next move.
         </p>
 
+        <p className="mt-4 max-w-2xl text-sm text-zinc-500">
+          Based in Miami, Florida, with presence in the New York metropolitan
+          area. Working with clients across the United States and Latin America.
+        </p>
+
         <form onSubmit={handleSubmit} className="mt-12 max-w-4xl space-y-6">
           <input
             type="text"

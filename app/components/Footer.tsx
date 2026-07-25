@@ -13,6 +13,11 @@ export default function Footer() {
               We help creators turn their audience into scalable, monetizable
               communities using systems and AI automation.
             </p>
+            <p className="mt-4 max-w-sm text-sm text-zinc-500">
+              Based in Miami, Florida, with presence in the New York
+              metropolitan area. Working with clients across the United States
+              and Latin America.
+            </p>
           </div>
 
           <div className="flex gap-16 text-sm">
