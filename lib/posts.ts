@@ -33,8 +33,16 @@ export type PostMeta = {
   cover?: string; // optional hero/thumbnail image path
 };
 
+export type FaqItem = {
+  question: string;
+  answer: string;
+};
+
 export type Post = PostMeta & {
   contentHtml: string;
+  // Q&A pairs pulled from the post's "Frequently asked questions" section, used
+  // to emit FAQPage structured data. Empty when the post has no FAQ.
+  faq: FaqItem[];
 };
 
 // A file named my-post.md is served at /blog/my-post.
@@ -105,7 +113,45 @@ export async function getPost(slug: string): Promise<Post | null> {
   if (!raw) return null;
   const rendered = await marked.parse(embedYouTube(raw.content));
   const contentHtml = unwrapBlockMedia(rendered);
-  return { ...toMeta(slug, raw.data), contentHtml };
+  return { ...toMeta(slug, raw.data), contentHtml, faq: extractFaq(raw.content) };
+}
+
+// Pulls Q&A pairs out of a post's FAQ section so the page can emit FAQPage
+// structured data without the author maintaining a second copy. The section is
+// the "## Frequently asked questions" H2; inside it, each question is a bold
+// line — **Question?** — immediately followed by its answer paragraph, pairs
+// separated by a blank line. Anything that doesn't match this shape is ignored,
+// so a post with no such section simply yields [].
+function extractFaq(md: string): FaqItem[] {
+  const heading = md.match(/^##\s+.*frequently asked questions.*$/im);
+  if (!heading || heading.index === undefined) return [];
+
+  const afterHeading = md.slice(heading.index + heading[0].length);
+  // Stop at the next H2 so we don't wander into later sections.
+  const nextH2 = afterHeading.search(/^##\s+/m);
+  const section = nextH2 === -1 ? afterHeading : afterHeading.slice(0, nextH2);
+
+  const items: FaqItem[] = [];
+  const pair =
+    /\*\*(.+?)\*\*[ \t]*\r?\n([\s\S]*?)(?=\r?\n[ \t]*\r?\n|\r?\n\*\*|$)/g;
+  let m: RegExpExecArray | null;
+  while ((m = pair.exec(section)) !== null) {
+    const question = stripInlineMd(m[1]);
+    const answer = stripInlineMd(m[2]);
+    if (question && answer) items.push({ question, answer });
+  }
+  return items;
+}
+
+// Flattens a run of inline markdown to plain text for use inside JSON-LD:
+// links become their label, emphasis/code markers are dropped, and whitespace
+// is collapsed to single spaces.
+function stripInlineMd(s: string): string {
+  return s
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+    .replace(/[*_`]+/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 // A line that is *only* a YouTube URL becomes a responsive, privacy-friendly

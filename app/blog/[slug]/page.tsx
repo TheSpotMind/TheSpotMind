@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllSlugs, getPost, formatDate } from "../../../lib/posts";
+import JsonLd from "../../components/JsonLd";
+import { SITE_URL, SITE_NAME, ORG_ID } from "../../../lib/site";
 
 // Prerender every post at build time. A slug not in this list 404s rather than
 // being rendered on demand (dynamicParams defaults to true, but we have no
@@ -34,8 +36,40 @@ export default async function BlogPost({
   const post = await getPost(slug);
   if (!post) notFound();
 
+  const url = `${SITE_URL}/blog/${post.slug}`;
+
+  const blogPostingLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": `${url}#article`,
+    headline: post.title,
+    description: post.excerpt,
+    datePublished: post.date,
+    dateModified: post.date,
+    author: { "@type": "Organization", name: post.author, url: SITE_URL },
+    publisher: { "@id": ORG_ID, "@type": "Organization", name: SITE_NAME },
+    mainEntityOfPage: url,
+    ...(post.cover ? { image: `${SITE_URL}${post.cover}` } : {}),
+  };
+
+  const faqLd =
+    post.faq.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: post.faq.map((f) => ({
+            "@type": "Question",
+            name: f.question,
+            acceptedAnswer: { "@type": "Answer", text: f.answer },
+          })),
+        }
+      : null;
+
   return (
     <main className="min-h-screen bg-black text-white px-6 py-24">
+      <JsonLd data={blogPostingLd} />
+      {faqLd && <JsonLd data={faqLd} />}
+
       <article className="mx-auto max-w-3xl">
         <Link
           href="/blog"

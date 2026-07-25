@@ -2,7 +2,8 @@ import "./globals.css";
 import Link from "next/link";
 import Image from "next/image";
 import Footer from "./components/Footer";
-import { SITE_URL } from "../lib/site";
+import JsonLd from "./components/JsonLd";
+import { SITE_URL, organizationSchema } from "../lib/site";
 
 export const metadata = {
   // Resolves relative URLs in metadata (Open Graph images, canonical, etc.)
@@ -24,6 +25,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-black text-white antialiased">
+        {/* Site-wide Organization structured data (AEO / rich results). */}
+        <JsonLd data={organizationSchema()} />
+
         <header className="sticky top-0 z-50 border-b border-white/5 bg-black/70 backdrop-blur-xl">
           <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
             <Link href="/" className="flex items-center">
