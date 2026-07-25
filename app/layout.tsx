@@ -2,8 +2,12 @@ import "./globals.css";
 import Link from "next/link";
 import Image from "next/image";
 import Footer from "./components/Footer";
+import { SITE_URL } from "../lib/site";
 
 export const metadata = {
+  // Resolves relative URLs in metadata (Open Graph images, canonical, etc.)
+  // and stops Next defaulting metadataBase to localhost at build time.
+  metadataBase: new URL(SITE_URL),
   title: "TheSpotMind",
   description:
     "We help creators grow, engage, and monetize their communities with systems and AI automation.",
