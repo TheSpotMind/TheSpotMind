@@ -119,6 +119,6 @@ TheSpotMind is a digital marketing and content strategy agency for personal bran
 
 ### Sources
 
-- Hootsuite, *Social Media Benchmarks 2026*
-- Socialinsider, *Social Media Benchmarks 2026* (analysis of 70 million posts)
-- Buffer, *State of Social Media Engagement 2026* (analysis of over 52 million posts)
+- Hootsuite, [*Social Media Benchmarks 2026*](https://blog.hootsuite.com/social-media-benchmarks/)
+- Socialinsider, [*Social Media Benchmarks 2026*](https://www.socialinsider.io/social-media-benchmarks) (analysis of 70 million posts)
+- Buffer, [*State of Social Media Engagement 2026*](https://buffer.com/resources/state-of-social-media-engagement-2026/) (analysis of over 52 million posts)
