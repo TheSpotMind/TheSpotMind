@@ -1,3 +1,5 @@
+import Faq from "../components/Faq";
+
 export const metadata = {
   title: "Creator Community Growth, Monetization & AI Automation Services",
   description:
@@ -64,6 +66,27 @@ export default function Solutions() {
             </ul>
           </div>
         </div>
+
+        <Faq
+          items={[
+            {
+              question: "What does TheSpotMind actually do?",
+              answer:
+                "We build three connected systems for creators and digital brands: community growth (engagement loops and retention structure), monetization (offers and funnels that turn attention into recurring revenue), and AI automation (onboarding flows, DM automation, and backend workflows). They're designed to work as one system, not three separate efforts.",
+            },
+            {
+              question: "How long does it take to see results?",
+              answer:
+                "It depends on your starting point, your offer, and your audience, so we don't promise a specific timeline or outcome. Our systems are built to compound — we optimize for retention, trust, and recurring revenue, which strengthen the longer they run, rather than one-off spikes that fade when attention moves on.",
+            },
+            {
+              question:
+                "How is this different from a social media manager or a traditional agency?",
+              answer:
+                "A social media manager usually focuses on posting and staying active. We focus on the system underneath it — clear pathways from follower to member to customer, retention loops, and automation that carries the load — so your results aren't hostage to how much you post or how online you are.",
+            },
+          ]}
+        />
 
         {/* CTA */}
         <div className="mt-24 rounded-3xl border border-white/10 p-12 text-center">

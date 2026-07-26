@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Faq from "../components/Faq";
 
 export default function ContactPage() {
   const [status, setStatus] = useState<"IDLE" | "LOADING" | "SUCCESS" | "ERROR">("IDLE");
@@ -106,6 +107,23 @@ export default function ContactPage() {
           </div>
         </form>
       </section>
+
+      <div className="mx-auto max-w-5xl px-6 pb-24">
+        <Faq
+          items={[
+            {
+              question: "Is the strategy call free?",
+              answer:
+                "Yes. The first growth strategy call is free. You tell us about your audience, community, and goals, and we help you map the next move — no obligation.",
+            },
+            {
+              question: "What happens after I get in touch?",
+              answer:
+                "Send the form with a bit about your audience and goals, and we'll get back to you within 24 hours. The first conversation is about understanding where you are and mapping the fastest next move.",
+            },
+          ]}
+        />
+      </div>
     </main>
   );
 }
