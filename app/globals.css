@@ -39,6 +39,12 @@ body {
 .blog-content > * + * {
   margin-top: 1.5rem;
 }
+.blog-content h1 {
+  color: #fff;
+  font-size: 2.5rem;
+  font-weight: 600;
+  line-height: 1.15;
+}
 .blog-content h2 {
   color: #fff;
   font-size: 1.75rem;
@@ -91,6 +97,25 @@ body {
   border-radius: 6px;
   padding: 0.15em 0.4em;
   font-size: 0.9em;
+}
+
+/* Tables (e.g. benchmark data, the privacy providers list) */
+.blog-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+.blog-content th,
+.blog-content td {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.6rem 0.9rem;
+  text-align: left;
+  vertical-align: top;
+}
+.blog-content th {
+  color: #fff;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.04);
 }
 
 /* Media inside posts */

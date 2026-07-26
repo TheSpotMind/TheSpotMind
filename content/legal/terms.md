@@ -16,7 +16,7 @@ These terms govern your use of thespotmind.com and any services provided by TheS
 TheSpotMind is a community growth and monetization consultancy operating from Miami, Florida, United States, with presence in the New York metropolitan area. We serve clients throughout the United States and Latin America.
 
 Legal entity: **[LEGAL ENTITY NAME]**
-Contact: **[EMAIL]**
+Contact: **team@thespotmind.com**
 
 ## 2. Use of this website
 
@@ -49,9 +49,9 @@ Results depend on factors outside our control, including your offer, your audien
 
 Fees, schedule, and payment terms are set out in the applicable proposal. Unless stated otherwise:
 
-- Invoices are due within **[15]** days of issue
+- Invoices are due within **15** days of issue
 - Fees are quoted in **US dollars** and exclude any applicable taxes, which are your responsibility
-- Late payments may incur interest at **[1.5]%** per month or the maximum permitted by law, whichever is lower
+- Late payments may incur interest at **1.5%** per month or the maximum permitted by law, whichever is lower
 - Deposits and fees for work already performed are non-refundable
 
 We may suspend work on overdue accounts after written notice.
@@ -76,7 +76,7 @@ Each party agrees to keep the other's non-public business information confidenti
 
 ## 9. Termination
 
-Either party may terminate an engagement with **[14]** days' written notice. On termination, you pay for all work performed through the termination date, and we deliver work completed to that point.
+Either party may terminate an engagement with **14** days' written notice. On termination, you pay for all work performed through the termination date, and we deliver work completed to that point.
 
 We may terminate immediately for non-payment, breach of these terms, or conduct that is abusive or unlawful.
 
@@ -86,7 +86,7 @@ To the maximum extent permitted by law:
 
 - The site and our services are provided "as is," without warranties of any kind, express or implied
 - We are not liable for indirect, incidental, consequential, special, or punitive damages, including lost profits, lost revenue, or lost data
-- Our total aggregate liability arising from any engagement will not exceed the fees you paid us in the **[three (3)] months** preceding the event giving rise to the claim
+- Our total aggregate liability arising from any engagement will not exceed the fees you paid us in the **three (3) months** preceding the event giving rise to the claim
 
 Some jurisdictions do not allow certain limitations, in which case the limits above apply to the maximum extent permitted.
 
@@ -98,7 +98,7 @@ You agree to indemnify and hold us harmless from claims arising out of your cont
 
 These terms are governed by the laws of the State of Florida, United States, without regard to conflict of law principles. Any dispute will be brought exclusively in the state or federal courts located in Miami-Dade County, Florida, and both parties consent to that jurisdiction.
 
-Before filing, the parties agree to attempt to resolve the dispute in good faith for **[30]** days after written notice.
+Before filing, the parties agree to attempt to resolve the dispute in good faith for **30** days after written notice.
 
 ## 13. General
 
@@ -117,4 +117,4 @@ Before filing, the parties agree to attempt to resolve the dispute in good faith
 **[LEGAL ENTITY NAME]**
 [ADDRESS]
 Miami, Florida, United States
-[EMAIL]
+team@thespotmind.com
