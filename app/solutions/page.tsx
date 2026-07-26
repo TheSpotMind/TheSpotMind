@@ -85,6 +85,11 @@ export default function Solutions() {
               answer:
                 "A social media manager usually focuses on posting and staying active. We focus on the system underneath it — clear pathways from follower to member to customer, retention loops, and automation that carries the load — so your results aren't hostage to how much you post or how online you are.",
             },
+            {
+              question: "Do I need a big audience to work with you?",
+              answer:
+                "No. There's no minimum audience size. What matters is that you're building something you want to turn into a durable, monetizable community — the systems we build work whether you're just getting started or already established.",
+            },
           ]}
         />
 
