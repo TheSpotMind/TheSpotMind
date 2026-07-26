@@ -28,7 +28,9 @@ export function organizationSchema() {
     "@id": ORG_ID,
     name: SITE_NAME,
     url: SITE_URL,
-    logo: `${SITE_URL}/logo.png`,
+    // Near-square icon (375x351) — renders better than the wide wordmark in the
+    // small, roughly-square slot search engines and knowledge panels use.
+    logo: `${SITE_URL}/logo-icon.png`,
     description:
       "We help creators grow, engage, and monetize their communities with systems and AI automation.",
     sameAs: SOCIAL_PROFILES,
