@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Footer from "./components/Footer";
 import JsonLd from "./components/JsonLd";
+import LanguageToggle from "./components/LanguageToggle";
 import { SITE_URL, organizationSchema } from "../lib/site";
 
 export const metadata = {
@@ -60,6 +61,9 @@ export default function RootLayout({
             </nav>
 
             <div className="flex items-center gap-2 sm:gap-3">
+              {/* Global language control — the site's single EN/ES switch. */}
+              <LanguageToggle />
+
               {/* Creators sign in on the dashboard subdomain, not here. Ghost pill
                   matches the app header's own secondary buttons. */}
               <a

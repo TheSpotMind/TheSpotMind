@@ -15,8 +15,6 @@ export function generateStaticParams() {
 
 const CONTENT = {
   en: {
-    dir: "English",
-    other: { lang: "es" as Lang, label: "ES", aria: "Ver esta página en español" },
     metaTitle: "Grow Your Creator Community — Systems & AI Automation | TheSpotMind",
     metaDescription:
       "TheSpotMind builds community growth, retention, and monetization systems for creators — powered by AI automation. Remote, in English or Spanish, across the US and Latin America.",
@@ -47,8 +45,6 @@ const CONTENT = {
     ctaBody: "Tell us about your audience and goals — we'll map the next move.",
   },
   es: {
-    dir: "Español",
-    other: { lang: "en" as Lang, label: "EN", aria: "View this page in English" },
     metaTitle:
       "Haz crecer tu comunidad de creador — Sistemas y automatización con IA | TheSpotMind",
     metaDescription:
@@ -121,25 +117,8 @@ export default async function Landing({
     // <html> stays "en" — a valid per-section signal without full-site i18n.
     <main lang={lang} className="min-h-screen bg-black text-white px-6 py-24">
       <div className="mx-auto max-w-6xl">
-        {/* Language switch */}
-        <div className="flex justify-end">
-          <div className="inline-flex overflow-hidden rounded-full border border-white/15 text-sm">
-            <span className="bg-white px-4 py-1.5 font-medium text-black">
-              {t.dir}
-            </span>
-            <Link
-              href={`/start/${t.other.lang}`}
-              hrefLang={t.other.lang}
-              aria-label={t.other.aria}
-              className="px-4 py-1.5 text-zinc-300 transition hover:text-white"
-            >
-              {t.other.label}
-            </Link>
-          </div>
-        </div>
-
-        {/* Hero */}
-        <p className="mt-6 text-sm uppercase tracking-[0.2em] text-zinc-400">
+        {/* Hero — the EN/ES switch lives globally in the header. */}
+        <p className="text-sm uppercase tracking-[0.2em] text-zinc-400">
           {t.eyebrow}
         </p>
         <h1 className="mt-4 max-w-4xl text-5xl font-semibold leading-tight md:text-7xl">
