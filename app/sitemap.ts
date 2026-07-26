@@ -28,6 +28,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     );
   }
 
+  // ── Bilingual landing ────────────────────────────────────────────────────
+  // Both locales, each pointing at the other via hreflang alternates. The
+  // /start chooser is noindex, so it's intentionally left out.
+  const landingAlternates = {
+    languages: {
+      en: `${SITE_URL}/start/en`,
+      es: `${SITE_URL}/start/es`,
+    },
+  };
+  routes.push(
+    { url: `${SITE_URL}/start/en`, lastModified: now, changeFrequency: "monthly", priority: 0.8, alternates: landingAlternates },
+    { url: `${SITE_URL}/start/es`, lastModified: now, changeFrequency: "monthly", priority: 0.8, alternates: landingAlternates },
+  );
+
   // ── Legal ────────────────────────────────────────────────────────────────
   routes.push(
     { url: `${SITE_URL}/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
