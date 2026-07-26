@@ -6,8 +6,8 @@ meta_description: "The terms that govern use of thespotmind.com and engagements 
 
 # Terms of Service
 
-**Effective date:** [DATE]
-**Last updated:** [DATE]
+**Effective date:** July 25, 2026
+**Last updated:** July 25, 2026
 
 These terms govern your use of thespotmind.com and any services provided by TheSpotMind ("TheSpotMind," "we," "us"). By using the site or engaging our services, you agree to them.
 
@@ -15,7 +15,7 @@ These terms govern your use of thespotmind.com and any services provided by TheS
 
 TheSpotMind is a community growth and monetization consultancy operating from Miami, Florida, United States, with presence in the New York metropolitan area. We serve clients throughout the United States and Latin America.
 
-Legal entity: **[LEGAL ENTITY NAME]**
+Legal entity: **THESPOTMIND LLC**
 Contact: **team@thespotmind.com**
 
 ## 2. Use of this website
@@ -114,7 +114,9 @@ Before filing, the parties agree to attempt to resolve the dispute in good faith
 
 ## 14. Contact
 
-**[LEGAL ENTITY NAME]**
-[ADDRESS]
-Miami, Florida, United States
+**THESPOTMIND LLC**
+c/o Registered Agents Inc
+7901 4th St N, Ste 300
+St. Petersburg, FL 33702
+United States
 team@thespotmind.com

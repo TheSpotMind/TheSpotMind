@@ -6,8 +6,8 @@ meta_description: "How TheSpotMind collects, uses, and protects your information
 
 # Privacy Policy
 
-**Effective date:** [DATE]
-**Last updated:** [DATE]
+**Effective date:** July 25, 2026
+**Last updated:** July 25, 2026
 
 TheSpotMind ("TheSpotMind," "we," "us") operates thespotmind.com. This policy explains what information we collect, why, and what control you have over it.
 
@@ -17,8 +17,8 @@ If you have questions, contact us at **team@thespotmind.com**.
 
 TheSpotMind is a community growth and monetization consultancy operating from Miami, Florida, United States, with presence in the New York metropolitan area. We serve clients across the United States and Latin America.
 
-Legal entity: **[LEGAL ENTITY NAME]**
-Mailing address: **[ADDRESS]**
+Legal entity: **THESPOTMIND LLC**
+Mailing address: **c/o Registered Agents Inc, 7901 4th St N, Ste 300, St. Petersburg, FL 33702**
 
 ## Information we collect
 
@@ -99,7 +99,9 @@ We may update this policy. Material changes will be reflected in the "Last updat
 
 ## Contact
 
-**[LEGAL ENTITY NAME]**
-[ADDRESS]
-Miami, Florida, United States
+**THESPOTMIND LLC**
+c/o Registered Agents Inc
+7901 4th St N, Ste 300
+St. Petersburg, FL 33702
+United States
 team@thespotmind.com

@@ -39,7 +39,11 @@ export async function getLegalDoc(slug: LegalSlug): Promise<LegalDoc | null> {
   const raw = matter(fs.readFileSync(full, "utf8"));
   if (hasUnfilledPlaceholders(raw.content)) return null;
 
-  const contentHtml = await marked.parse(raw.content);
+  // breaks: true keeps single newlines as <br> so the stacked address and
+  // effective-date blocks render on separate lines instead of collapsing into
+  // one paragraph. Legal prose has no intentional soft-wraps within paragraphs,
+  // so this only affects those deliberately-stacked blocks.
+  const contentHtml = await marked.parse(raw.content, { breaks: true });
   return {
     title: String(raw.data.title ?? slug),
     description: String(raw.data.meta_description ?? ""),
