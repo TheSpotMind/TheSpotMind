@@ -60,17 +60,6 @@ export default function RootLayout({
             </nav>
 
             <div className="flex items-center gap-2 sm:gap-3">
-              {/* Entry point to the Spanish landing — the site's one Spanish
-                  page. Hidden on the smallest screens to avoid crowding the
-                  header; the footer carries it there. */}
-              <Link
-                href="/start/es"
-                hrefLang="es"
-                className="hidden text-sm text-zinc-400 transition hover:text-white sm:inline"
-              >
-                Español
-              </Link>
-
               {/* Creators sign in on the dashboard subdomain, not here. Ghost pill
                   matches the app header's own secondary buttons. */}
               <a
