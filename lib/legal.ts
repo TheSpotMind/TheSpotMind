@@ -4,6 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import { marked } from "marked";
+import type { Locale } from "./i18n";
 
 const LEGAL_DIR = path.join(process.cwd(), "content", "legal");
 
@@ -32,8 +33,11 @@ export function hasUnfilledPlaceholders(md: string): boolean {
  * still contains unfilled placeholders. Returning null lets the route 404
  * rather than ever serving incomplete legal text.
  */
-export async function getLegalDoc(slug: LegalSlug): Promise<LegalDoc | null> {
-  const full = path.join(LEGAL_DIR, `${slug}.md`);
+export async function getLegalDoc(
+  locale: Locale,
+  slug: LegalSlug,
+): Promise<LegalDoc | null> {
+  const full = path.join(LEGAL_DIR, locale, `${slug}.md`);
   if (!fs.existsSync(full)) return null;
 
   const raw = matter(fs.readFileSync(full, "utf8"));

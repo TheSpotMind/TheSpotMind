@@ -16,6 +16,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/about", priority: 0.6, freq: "monthly" },
     { path: "/contact", priority: 0.5, freq: "yearly" },
     { path: "/blog", priority: 0.7, freq: "weekly" },
+    { path: "/privacy", priority: 0.3, freq: "yearly" },
+    { path: "/terms", priority: 0.3, freq: "yearly" },
   ];
 
   const languagesFor = (path: string) =>
@@ -43,12 +45,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       });
     }
   }
-
-  // Legal pages are English-only.
-  routes.push(
-    { url: `${SITE_URL}/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
-    { url: `${SITE_URL}/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
-  );
 
   return routes;
 }

@@ -39,9 +39,8 @@ export default function Footer() {
               <p className="mb-3 text-white">{t.company}</p>
               <div className="flex flex-col gap-2 text-zinc-400">
                 <Link href={p("/about")} className="hover:text-white">{t.about}</Link>
-                {/* Legal pages are English-only; link both locales to them. */}
-                <Link href="/privacy" className="hover:text-white">{t.privacy}</Link>
-                <Link href="/terms" className="hover:text-white">{t.terms}</Link>
+                <Link href={p("/privacy")} className="hover:text-white">{t.privacy}</Link>
+                <Link href={p("/terms")} className="hover:text-white">{t.terms}</Link>
               </div>
             </div>
           </div>
