@@ -1,8 +1,14 @@
 # Writing blog posts
 
-Each post is one markdown file in this folder: `content/blog/`. The file name
-becomes the URL — `my-post.md` is served at `/blog/my-post`. Add a file, commit
-it, and it appears on `/blog` automatically, newest first.
+Posts are split by language into `content/blog/en/` and `content/blog/es/`. The
+file name becomes the URL — `en/my-post.md` is served at `/blog/my-post`, and
+`es/my-post.md` at `/es/blog/my-post`. Add a file, commit it, and it appears on
+that locale's `/blog` automatically, newest first.
+
+To publish a post in both languages, use the **same file name** in `en/` and
+`es/` — that keeps the two URLs paired for hreflang. A post that exists in only
+one locale simply doesn't appear in the other. The FAQ section is detected in
+either language (`## Frequently asked questions` / `## Preguntas frecuentes`).
 
 > This README is ignored by the blog (only `.md` files that aren't `README` show
 > up). It's just documentation.

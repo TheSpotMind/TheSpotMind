@@ -1,16 +1,16 @@
-import BlogListView from "../components/BlogListView";
+import HomeView from "../components/HomeView";
 import { getDict } from "../../lib/dictionaries";
 import { metadataAlternates } from "../../lib/i18n";
 
 export function generateMetadata() {
-  const t = getDict("en").blog;
+  const t = getDict("es").home;
   return {
     title: t.metaTitle,
     description: t.metaDescription,
-    alternates: metadataAlternates("en", "/blog"),
+    alternates: metadataAlternates("es", "/"),
   };
 }
 
-export default function Blog() {
-  return <BlogListView locale="en" />;
+export default function HomeEs() {
+  return <HomeView locale="es" />;
 }

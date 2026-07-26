@@ -1,48 +1,50 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "../lib/site";
+import { locales, localizedPath } from "../lib/i18n";
 import { getSortedPosts } from "../lib/posts";
 
-// Served at /sitemap.xml. Static top-level routes, most important first.
+// Served at /sitemap.xml. Each localized page is listed with hreflang
+// alternates linking its other-language twin, so both locales are discoverable
+// and understood as translations rather than duplicates.
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
-  const routes: MetadataRoute.Sitemap = [
-    { url: `${SITE_URL}/`, lastModified: now, changeFrequency: "weekly", priority: 1.0 },
-    { url: `${SITE_URL}/solutions`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${SITE_URL}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${SITE_URL}/contact`, lastModified: now, changeFrequency: "yearly", priority: 0.5 },
+  // Pages that exist in both locales (English at root, Spanish under /es).
+  const bilingual: { path: string; priority: number; freq: MetadataRoute.Sitemap[number]["changeFrequency"] }[] = [
+    { path: "/", priority: 1.0, freq: "weekly" },
+    { path: "/solutions", priority: 0.8, freq: "monthly" },
+    { path: "/about", priority: 0.6, freq: "monthly" },
+    { path: "/contact", priority: 0.5, freq: "yearly" },
+    { path: "/blog", priority: 0.7, freq: "weekly" },
   ];
 
-  // ── Blog ─────────────────────────────────────────────────────────────────
-  // Included now that there are real posts; reads the same posts the pages do.
-  const posts: MetadataRoute.Sitemap = getSortedPosts().map((p) => ({
-    url: `${SITE_URL}/blog/${p.slug}`,
-    lastModified: new Date(p.date),
-    changeFrequency: "monthly",
-    priority: 0.7,
-  }));
-  if (posts.length > 0) {
-    routes.push(
-      { url: `${SITE_URL}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
-      ...posts,
-    );
-  }
+  const languagesFor = (path: string) =>
+    Object.fromEntries(locales.map((l) => [l, `${SITE_URL}${localizedPath(l, path)}`]));
 
-  // ── Bilingual landing ────────────────────────────────────────────────────
-  // Both locales, each pointing at the other via hreflang alternates. The
-  // /start chooser is noindex, so it's intentionally left out.
-  const landingAlternates = {
-    languages: {
-      en: `${SITE_URL}/start/en`,
-      es: `${SITE_URL}/start/es`,
-    },
-  };
-  routes.push(
-    { url: `${SITE_URL}/start/en`, lastModified: now, changeFrequency: "monthly", priority: 0.8, alternates: landingAlternates },
-    { url: `${SITE_URL}/start/es`, lastModified: now, changeFrequency: "monthly", priority: 0.8, alternates: landingAlternates },
+  const routes: MetadataRoute.Sitemap = bilingual.flatMap(({ path, priority, freq }) =>
+    locales.map((locale) => ({
+      url: `${SITE_URL}${localizedPath(locale, path)}`,
+      lastModified: now,
+      changeFrequency: freq,
+      priority,
+      alternates: { languages: languagesFor(path) },
+    })),
   );
 
-  // ── Legal ────────────────────────────────────────────────────────────────
+  // Blog posts — one entry per locale a given post exists in.
+  for (const locale of locales) {
+    for (const post of getSortedPosts(locale)) {
+      routes.push({
+        url: `${SITE_URL}${localizedPath(locale, `/blog/${post.slug}`)}`,
+        lastModified: new Date(post.date),
+        changeFrequency: "monthly",
+        priority: 0.7,
+        alternates: { languages: languagesFor(`/blog/${post.slug}`) },
+      });
+    }
+  }
+
+  // Legal pages are English-only.
   routes.push(
     { url: `${SITE_URL}/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
     { url: `${SITE_URL}/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },

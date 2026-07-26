@@ -5,8 +5,14 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import { marked } from "marked";
+import type { Locale } from "./i18n";
 
-const POSTS_DIR = path.join(process.cwd(), "content", "blog");
+// Posts are split by locale: content/blog/en and content/blog/es. A translated
+// post keeps the same slug in both, so its two URLs (/blog/x and /es/blog/x)
+// pair up cleanly for hreflang.
+function postsDir(locale: Locale): string {
+  return path.join(process.cwd(), "content", "blog", locale);
+}
 
 // Configure the shared marked instance once, at module load. Images get native
 // lazy-loading, and an image given a markdown title — ![alt](src "caption") —
@@ -61,8 +67,11 @@ function isPostFile(filename: string): boolean {
   );
 }
 
-function readRaw(slug: string): matter.GrayMatterFile<string> | null {
-  const full = path.join(POSTS_DIR, `${slug}.md`);
+function readRaw(
+  locale: Locale,
+  slug: string,
+): matter.GrayMatterFile<string> | null {
+  const full = path.join(postsDir(locale), `${slug}.md`);
   if (!fs.existsSync(full)) return null;
   return matter(fs.readFileSync(full, "utf8"));
 }
@@ -85,31 +94,33 @@ function toISODate(value: unknown): string {
   return String(value ?? "");
 }
 
-/** All posts, newest first. Metadata only — no rendered body. */
-export function getSortedPosts(): PostMeta[] {
-  if (!fs.existsSync(POSTS_DIR)) return [];
+/** All posts for a locale, newest first. Metadata only — no rendered body. */
+export function getSortedPosts(locale: Locale): PostMeta[] {
+  const dir = postsDir(locale);
+  if (!fs.existsSync(dir)) return [];
   return fs
-    .readdirSync(POSTS_DIR)
+    .readdirSync(dir)
     .filter(isPostFile)
     .map((f) => {
       const slug = slugFromFile(f);
-      return toMeta(slug, matter.read(path.join(POSTS_DIR, f)).data);
+      return toMeta(slug, matter.read(path.join(dir, f)).data);
     })
     .sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
-/** Slugs for generateStaticParams. */
-export function getAllSlugs(): string[] {
-  if (!fs.existsSync(POSTS_DIR)) return [];
-  return fs
-    .readdirSync(POSTS_DIR)
-    .filter(isPostFile)
-    .map(slugFromFile);
+/** Slugs for a locale, for generateStaticParams. */
+export function getAllSlugs(locale: Locale): string[] {
+  const dir = postsDir(locale);
+  if (!fs.existsSync(dir)) return [];
+  return fs.readdirSync(dir).filter(isPostFile).map(slugFromFile);
 }
 
 /** A single post with its markdown rendered to HTML, or null if missing. */
-export async function getPost(slug: string): Promise<Post | null> {
-  const raw = readRaw(slug);
+export async function getPost(
+  locale: Locale,
+  slug: string,
+): Promise<Post | null> {
+  const raw = readRaw(locale, slug);
   if (!raw) return null;
   const rendered = await marked.parse(embedYouTube(raw.content));
   const contentHtml = unwrapBlockMedia(rendered);
@@ -123,7 +134,9 @@ export async function getPost(slug: string): Promise<Post | null> {
 // separated by a blank line. Anything that doesn't match this shape is ignored,
 // so a post with no such section simply yields [].
 function extractFaq(md: string): FaqItem[] {
-  const heading = md.match(/^##\s+.*frequently asked questions.*$/im);
+  const heading = md.match(
+    /^##\s+.*(frequently asked questions|preguntas frecuentes).*$/im,
+  );
   if (!heading || heading.index === undefined) return [];
 
   const afterHeading = md.slice(heading.index + heading[0].length);
@@ -189,11 +202,11 @@ function escapeAttr(s: string): string {
   return escapeHtml(s).replace(/"/g, "&quot;");
 }
 
-/** e.g. "2026-07-10" -> "July 10, 2026". Falls back to the raw string. */
-export function formatDate(iso: string): string {
+/** e.g. "2026-07-10" -> "July 10, 2026" (en) / "10 de julio de 2026" (es). */
+export function formatDate(iso: string, locale: Locale = "en"): string {
   const d = new Date(`${iso}T00:00:00`);
   if (Number.isNaN(d.getTime())) return iso;
-  return d.toLocaleDateString("en-US", {
+  return d.toLocaleDateString(locale === "es" ? "es-ES" : "en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",

@@ -2,32 +2,33 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { localeOf, toLogicalPath, localizedPath } from "../../lib/i18n";
 
-// Global EN/ES language control shown in the header on every page. The site is
-// English except for the Spanish landing (/start/es), so "Spanish" is active
-// only there; everywhere else English is active and ES links to the Spanish
-// landing. The active side is a non-link label; the other side links across.
+// Global EN/ES switch. Keeps you on the same page: it maps the current path to
+// its twin in the other language (e.g. /es/about <-> /about). The active locale
+// is a plain label; the other is a link.
 export default function LanguageToggle() {
   const pathname = usePathname() || "/";
-  const isSpanish = pathname.startsWith("/start/es");
+  const locale = localeOf(pathname);
+  const logical = toLogicalPath(pathname);
 
   const active = "bg-white px-3 py-1.5 font-medium text-black";
   const link = "px-3 py-1.5 text-zinc-300 transition hover:text-white";
 
   return (
     <div className="inline-flex overflow-hidden rounded-full border border-white/15 text-xs">
-      {isSpanish ? (
-        <Link href="/start/en" hrefLang="en" className={link}>
+      {locale === "en" ? (
+        <span className={active}>EN</span>
+      ) : (
+        <Link href={localizedPath("en", logical)} hrefLang="en" className={link}>
           EN
         </Link>
-      ) : (
-        <span className={active}>EN</span>
       )}
 
-      {isSpanish ? (
+      {locale === "es" ? (
         <span className={active}>ES</span>
       ) : (
-        <Link href="/start/es" hrefLang="es" className={link}>
+        <Link href={localizedPath("es", logical)} hrefLang="es" className={link}>
           ES
         </Link>
       )}
